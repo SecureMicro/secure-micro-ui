@@ -1,6 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+type Configuration = {
+  id: string;
+  name: string;
+  // Add other fields as needed
+};
+
+interface ConfigState {
+  configurations: Configuration[];
+  loading: boolean;
+  error: string | null;
+}
+
+const initialState: ConfigState = {
   configurations: [],
   loading: false,
   error: null,
@@ -14,18 +26,18 @@ const configSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    fetchConfigsSuccess: (state, action) => {
+    fetchConfigsSuccess: (state, action: PayloadAction<Configuration[]>) => {
       state.loading = false;
       state.configurations = action.payload;
     },
-    fetchConfigsFailure: (state, action) => {
+    fetchConfigsFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
       state.error = action.payload;
     },
-    addConfig: (state, action) => {
+    addConfig: (state, action: PayloadAction<Configuration>) => {
       state.configurations.push(action.payload);
     },
-    updateConfig: (state, action) => {
+    updateConfig: (state, action: PayloadAction<Configuration>) => {
       const index = state.configurations.findIndex(
         (config) => config.id === action.payload.id
       );
@@ -33,7 +45,7 @@ const configSlice = createSlice({
         state.configurations[index] = action.payload;
       }
     },
-    deleteConfig: (state, action) => {
+    deleteConfig: (state, action: PayloadAction<string>) => {
       state.configurations = state.configurations.filter(
         (config) => config.id !== action.payload
       );
@@ -49,4 +61,5 @@ export const {
   updateConfig,
   deleteConfig,
 } = configSlice.actions;
+
 export default configSlice.reducer;

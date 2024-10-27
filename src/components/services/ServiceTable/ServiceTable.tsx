@@ -4,17 +4,16 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@mui/material";
 import { Power, Settings } from "lucide-react";
 import Button from "../../common/Button/Button";
-import { getStatusColor, getHealthIcon } from "../../../utils/formatters";
+import { getHealthIcon, getStatusColor } from "../../../utils/formatters";
 
 const ServiceTable: React.FC<{ services: any[] }> = ({ services }) => {
   return (
     <Table>
-      <TableHeader>
+      <TableHead>
         <TableRow>
           <TableHead>Service Name</TableHead>
           <TableHead>Status</TableHead>
@@ -23,7 +22,7 @@ const ServiceTable: React.FC<{ services: any[] }> = ({ services }) => {
           <TableHead>Last Deployed</TableHead>
           <TableHead>Actions</TableHead>
         </TableRow>
-      </TableHeader>
+      </TableHead>
       <TableBody>
         {services.map((service) => (
           <TableRow key={service.id}>

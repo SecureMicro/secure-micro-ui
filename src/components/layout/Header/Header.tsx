@@ -1,6 +1,6 @@
 import React from 'react';
 import { Bell, User } from 'lucide-react';
-import { Button } from '../../common/Button/Button';
+import Button from '../../common/Button/Button';
 
 const Header: React.FC = () => {
   return (

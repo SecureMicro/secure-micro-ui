@@ -19,7 +19,7 @@ const Sidebar: React.FC = () => {
   ];
 
   return (
-    <div className="w-64 h-screen bg-white border-r border-gray-200 fixed left-0 top-0">
+    <div className="w-64 h-screen bg-blue-600 border-r border-gray-200 fixed left-0 top-0">
       <div className="p-4 border-b border-gray-200">
         <h1 className="text-xl font-bold">SecureMicro</h1>
       </div>

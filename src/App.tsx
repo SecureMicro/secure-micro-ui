@@ -1,5 +1,5 @@
 import React from "react";
-import { createTheme, ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import "./App.css";
 // import { Provider } from "react-redux";
 import {
@@ -18,33 +18,11 @@ import Configurations from "./pages/configurations/Configurations";
 import Users from "./pages/users/Users";
 import Settings from "./pages/settings/Settings";
 import { ROUTES } from "./config/routes";
+import { lightTheme } from "./config/theme";
 
 const App: React.FC = () => {
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#0E0E0E",
-      },
-      secondary: {
-        main: "#7A7A7A",
-      },
-      // active: {
-      //   main: "#ECECEC",
-      // },
-    },
-    breakpoints: {
-      values: {
-        xs: 0,
-        sm: 768,
-        md: 1000,
-        lg: 1200,
-        xl: 1440,
-      },
-    },
-  });
-
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={lightTheme}>
       {/* <Provider store={store}> */}
       <Router>
         <Routes>

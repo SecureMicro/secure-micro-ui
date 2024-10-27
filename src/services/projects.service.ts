@@ -1,4 +1,4 @@
-import { api } from './api';
+import api from './api';
 import { Project } from '../types/project.types';
 
 export const ProjectsService = {

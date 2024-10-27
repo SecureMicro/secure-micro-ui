@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Plus, RefreshCw, Search } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@mui/material";
+import { Card, CardContent, CardHeader, Input } from "@mui/material";
 import Button from "../../components/common/Button/Button";
 import StatsCard from "../../components/dashboard/StatsCard/StatsCard";
 import ServiceTable from "../../components/services/ServiceTable/ServiceTable";
 
 const Dashboard: React.FC = () => {
-  const [services, setServices] = useState([
+  const [services] = useState([
     {
       id: 1,
       name: "Authentication Service",
@@ -49,22 +49,19 @@ const Dashboard: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <StatsCard title="Total Services" value={services.length} />
+        <StatsCard title="Total Services" value={services.length} className={""} valueClassName={""} />
         <StatsCard
           title="Active Services"
           value={services.filter((s) => s.status === "running").length}
-          valueClassName="text-green-500"
-        />
+          valueClassName="text-green-500" className={""}        />
         <StatsCard
           title="Health Warnings"
           value={services.filter((s) => s.health !== "healthy").length}
-          valueClassName="text-yellow-500"
-        />
+          valueClassName="text-yellow-500" className={""}        />
       </div>
 
       <Card>
-        <CardHeader>
-          <CardTitle>Services Overview</CardTitle>
+        <CardHeader title="Services Overview">
           <div className="flex items-center gap-4">
             <div className="relative flex-1">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />

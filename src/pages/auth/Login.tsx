@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardTitle, Input } from "@mui/material";
+import { Card, CardContent, CardHeader, Input } from "@mui/material";
 import Button from "../../components/common/Button/Button";
-import { ROUTES } from "config/routes";
+import { ROUTES } from "../../config/routes";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -16,8 +16,7 @@ const Login: React.FC = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle className="text-center">SecureMicro Login</CardTitle>
+        <CardHeader title="SecureMicro Login">
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
