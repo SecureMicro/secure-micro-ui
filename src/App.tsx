@@ -1,14 +1,14 @@
 import React from "react";
 import { ThemeProvider } from "@mui/material";
 import "./App.css";
-// import { Provider } from "react-redux";
+import { Provider } from "react-redux";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
-// import store from "./Redux/Store";
+import store from "./store";
 import "react-toastify/ReactToastify.css";
 import DashboardLayout from "./components/layouts/DashboardLayout";
 import Dashboard from "./pages/dashboard/Dashboard";
@@ -19,14 +19,16 @@ import Users from "./pages/users/Users";
 import Settings from "./pages/settings/Settings";
 import { ROUTES } from "./config/routes";
 import { lightTheme } from "./config/theme";
+import Register from "./pages/auth/Register";
 
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={lightTheme}>
-      {/* <Provider store={store}> */}
+      <Provider store={store}>
       <Router>
         <Routes>
           <Route path={ROUTES.LOGIN} element={<Login />} />
+          <Route path={ROUTES.REGISTER} element={<Register />} />
 
           {/* Protected Routes */}
           <Route element={<DashboardLayout />}>
@@ -44,9 +46,8 @@ const App: React.FC = () => {
           />
         </Routes>
       </Router>
-      {/* </Provider> */}
+      </Provider>
     </ThemeProvider>
-    // <h1 className="text-4xl text-blue-700">Hello</h1>
   );
 };
 

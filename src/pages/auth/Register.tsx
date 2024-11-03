@@ -3,17 +3,28 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../config/routes";
-import { TextField, FormControl, Button, Typography, Box } from "@mui/material";
+import {
+  TextField,
+  FormControl,
+  FormControlLabel,
+  Checkbox,
+  Button,
+  Typography,
+  Box,
+} from "@mui/material";
 
-const Login: React.FC = () => {
+const Register: React.FC = () => {
   const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
+      name: "",
       email: "",
       password: "",
+      allowExtraEmails: false,
     },
     validationSchema: Yup.object({
+      name: Yup.string().required("Name is required."),
       email: Yup.string()
         .email("Invalid email address")
         .required("Email is required."),
@@ -23,10 +34,12 @@ const Login: React.FC = () => {
     }),
     onSubmit: (values) => {
       console.log({
+        name: values.name,
         email: values.email,
         password: values.password,
       });
-      // Perform login action here
+      // You can navigate to another route or perform an action here
+      // navigate(ROUTES.SOME_ROUTE);
     },
   });
 
@@ -34,7 +47,7 @@ const Login: React.FC = () => {
     <Box className="flex flex-col justify-between h-screen p-4 sm:p-8 bg-gradient-to-r from-blue-100 to-white dark:from-gray-800 dark:to-gray-900">
       <Box className="flex flex-col items-center justify-center w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg dark:bg-gray-800">
         <Typography variant="h4" component="h1" align="center">
-          Sign in
+          Sign up
         </Typography>
         <form
           onSubmit={formik.handleSubmit}
@@ -42,8 +55,24 @@ const Login: React.FC = () => {
         >
           <FormControl fullWidth variant="outlined">
             <TextField
+              id="name"
+              name="name"
+              label="Full Name"
+              variant="outlined"
+              required
+              placeholder="Jon Snow"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.name}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
+            />
+          </FormControl>
+          <FormControl fullWidth variant="outlined">
+            <TextField
               id="email"
               name="email"
+              type="email"
               label="Email"
               variant="outlined"
               required
@@ -71,21 +100,32 @@ const Login: React.FC = () => {
               helperText={formik.touched.password && formik.errors.password}
             />
           </FormControl>
+          <FormControlLabel
+            control={
+              <Checkbox
+                id="allowExtraEmails"
+                name="allowExtraEmails"
+                onChange={formik.handleChange}
+                checked={formik.values.allowExtraEmails}
+              />
+            }
+            label="I want to receive updates via email."
+          />
           <Button
             type="submit"
             variant="contained"
             color="primary"
             className="w-full"
           >
-            Sign in
+            Sign up
           </Button>
           <Typography variant="body2" align="center">
-            Don't have an account?{" "}
+            Already have an account?{" "}
             <a
-              onClick={() => navigate(ROUTES.REGISTER)}
+              onClick={() => navigate(ROUTES.LOGIN)}
               className="text-blue-500 cursor-pointer hover:text-blue-600 dark:text-blue-800 dark:hover:text-blue-900"
             >
-              Sign up
+              Sign in
             </a>
           </Typography>
         </form>
@@ -94,4 +134,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default Register;

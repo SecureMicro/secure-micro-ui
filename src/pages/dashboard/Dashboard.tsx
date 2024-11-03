@@ -49,34 +49,42 @@ const Dashboard: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <StatsCard title="Total Services" value={services.length} className={""} valueClassName={""} />
+        <StatsCard
+          title="Total Services"
+          value={services.length}
+          className={""}
+          valueClassName={""}
+        />
         <StatsCard
           title="Active Services"
           value={services.filter((s) => s.status === "running").length}
-          valueClassName="text-green-500" className={""}        />
+          valueClassName="text-green-500"
+          className={""}
+        />
         <StatsCard
           title="Health Warnings"
           value={services.filter((s) => s.health !== "healthy").length}
-          valueClassName="text-yellow-500" className={""}        />
+          valueClassName="text-yellow-500"
+          className={""}
+        />
       </div>
 
       <Card>
-        <CardHeader title="Services Overview">
-          <div className="flex items-center gap-4">
-            <div className="relative flex-1">
-              <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
-              <Input
-                placeholder="Search services..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-8"
-              />
-            </div>
-            <Button variant="outline">
-              <RefreshCw className="w-4 h-4" />
-            </Button>
+        <CardHeader title="Services Overview" />
+        <div className="flex items-center gap-4">
+          <div className="relative flex-1">
+            <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
+            <Input
+              placeholder="Search services..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-8"
+            />
           </div>
-        </CardHeader>
+          <Button variant="outline">
+            <RefreshCw className="w-4 h-4" />
+          </Button>
+        </div>
         <CardContent>
           <ServiceTable services={filteredServices} />
         </CardContent>

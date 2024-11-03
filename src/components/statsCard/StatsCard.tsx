@@ -10,11 +10,10 @@ const StatsCard: React.FC<{
   console.log(className);
   return (
     <Card>
-      <CardHeader title={title}>
+      <CardHeader title={title} />
       <CardContent>
         <div className={`text-3xl font-bold ${valueClassName}`}>{value}</div>
       </CardContent>
-      </CardHeader>
     </Card>
   );
 };
