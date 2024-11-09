@@ -1,9 +1,10 @@
 export const ROUTES = {
-  DASHBOARD: "/",
+  DASHBOARD: "/dashboard",
   LOGIN: "/login",
   SERVICES: "/services",
   CONFIGURATIONS: "/configurations",
   USERS: "/users",
   SETTINGS: "/settings",
   REGISTER: "/register",
+  PROFILE: "/profile"
 };

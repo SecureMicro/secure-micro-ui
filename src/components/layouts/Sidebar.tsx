@@ -19,9 +19,9 @@ const Sidebar: React.FC = () => {
   ];
 
   return (
-    <div className="w-64 h-screen bg-blue-600 border-r border-gray-200 fixed left-0 top-0">
+    <div className="w-64 h-screen bg-violet-700 border-r border-gray-200 fixed left-0 top-0">
       <div className="p-4 border-b border-gray-200">
-        <h1 className="text-xl font-bold">SecureMicro</h1>
+        <h1 className="text-xl font-bold text-white">SecureMicro</h1>
       </div>
       <nav className="p-4">
         {menuItems.map((item) => (
@@ -31,8 +31,8 @@ const Sidebar: React.FC = () => {
             className={({ isActive }) =>
               `flex items-center space-x-3 px-4 py-2 rounded-md mb-1 ${
                 isActive 
-                  ? 'bg-gray-100 text-blue-600' 
-                  : 'text-gray-600 hover:bg-gray-50'
+                  ? 'bg-gray-100 text-violet-600' 
+                  : 'text-black-600 hover:bg-gray-50'
               }`
             }
           >

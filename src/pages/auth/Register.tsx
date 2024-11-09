@@ -12,9 +12,16 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../store/slices/authSlice"; // Adjust the import path as necessary
+import { useSelector } from "react-redux";
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const error = useSelector(
+    (state: { auth: { error: any } }) => state.auth.error
+  ); // Access error from auth state
 
   const formik = useFormik({
     initialValues: {
@@ -33,13 +40,18 @@ const Register: React.FC = () => {
         .required("Password is required."),
     }),
     onSubmit: (values) => {
-      console.log({
-        name: values.name,
-        email: values.email,
-        password: values.password,
+      // Dispatch the registerUser  thunk
+      // @ts-ignore
+      dispatch(registerUser({ 
+        fullName: values.name, 
+        email: values.email, 
+        password: values.password 
+      })).then((action: any) => {
+        if (registerUser.fulfilled.match(action)) {
+          // If registration is successful, navigate to the dashboard
+          navigate(ROUTES.LOGIN);
+        }
       });
-      // You can navigate to another route or perform an action here
-      // navigate(ROUTES.SOME_ROUTE);
     },
   });
 
@@ -49,6 +61,11 @@ const Register: React.FC = () => {
         <Typography variant="h4" component="h1" align="center">
           Sign up
         </Typography>
+        {error && (
+          <Typography color="error" align="center">
+            {error}
+          </Typography>
+        )}
         <form
           onSubmit={formik.handleSubmit}
           className="flex flex-col gap-4 w-full mt-4"

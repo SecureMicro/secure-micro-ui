@@ -20,6 +20,7 @@ import Settings from "./pages/settings/Settings";
 import { ROUTES } from "./config/routes";
 import { lightTheme } from "./config/theme";
 import Register from "./pages/auth/Register";
+import Profile from "./pages/profile/Profile";
 
 const App: React.FC = () => {
   return (
@@ -37,12 +38,13 @@ const App: React.FC = () => {
             <Route path={ROUTES.CONFIGURATIONS} element={<Configurations />} />
             <Route path={ROUTES.USERS} element={<Users />} />
             <Route path={ROUTES.SETTINGS} element={<Settings />} />
+            <Route path={ROUTES.PROFILE}  element={<Profile />} />
           </Route>
 
           {/* Redirect unmatched routes to dashboard */}
           <Route
             path="*"
-            element={<Navigate to={ROUTES.DASHBOARD} replace />}
+            element={<Navigate to={ROUTES.LOGIN} replace />}
           />
         </Routes>
       </Router>

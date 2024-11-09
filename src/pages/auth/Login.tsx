@@ -4,9 +4,12 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../config/routes";
 import { TextField, FormControl, Button, Typography, Box } from "@mui/material";
+import { loginUser } from "../../store/slices/authSlice";
+import { useDispatch } from "react-redux";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -22,11 +25,16 @@ const Login: React.FC = () => {
         .required("Password is required."),
     }),
     onSubmit: (values) => {
-      console.log({
-        email: values.email,
-        password: values.password,
+      // @ts-ignore
+      dispatch(loginUser({ 
+        email: values.email, 
+        password: values.password 
+      })).then((action: any) => {
+        if (loginUser.fulfilled.match(action)) {
+          // If login is successful, navigate to the dashboard
+          navigate(ROUTES.DASHBOARD);
+        }
       });
-      // Perform login action here
     },
   });
 
@@ -34,7 +42,7 @@ const Login: React.FC = () => {
     <Box className="flex flex-col justify-between h-screen p-4 sm:p-8 bg-gradient-to-r from-blue-100 to-white dark:from-gray-800 dark:to-gray-900">
       <Box className="flex flex-col items-center justify-center w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg dark:bg-gray-800">
         <Typography variant="h4" component="h1" align="center">
-          Sign in
+          Sign in to SecureMicro
         </Typography>
         <form
           onSubmit={formik.handleSubmit}

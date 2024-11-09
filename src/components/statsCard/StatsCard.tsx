@@ -7,12 +7,11 @@ const StatsCard: React.FC<{
   className?: string;
   valueClassName: string;
 }> = ({ title, value, className = "", valueClassName = "" }) => {
-  console.log(className);
   return (
     <Card>
       <CardHeader title={title} />
       <CardContent>
-        <div className={`text-3xl font-bold ${valueClassName}`}>{value}</div>
+        <div className={`text-3xl font-bold ${valueClassName} ${className}`}>{value}</div>
       </CardContent>
     </Card>
   );
