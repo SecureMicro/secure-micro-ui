@@ -9,7 +9,9 @@ const initialState = {
     refreshToken: localStorage.getItem('refreshToken'),
     loading: false,
     error: null,
-    auth:window.localStorage.getItem('authUser') ? JSON.parse(window.localStorage.getItem('authUser') as string) : {}
+    auth: window.localStorage.getItem('authUser')
+        ? JSON.parse(window.localStorage.getItem('authUser') as string)
+        : {},
 }
 
 // Async thunk for login
@@ -67,13 +69,16 @@ const authSlice = createSlice({
         logout: (state) => {
             state.user = null
             state.token = null
-            window.localStorage.removeItem('token');
+            window.localStorage.removeItem('token')
             window.localStorage.removeItem('authUser')
         },
-        addUser:(state,action:PayloadAction<any>)=>{
-            state.auth=action.payload;
-            window.localStorage.setItem('authUser',JSON.stringify(action.payload))
-        }
+        addUser: (state, action: PayloadAction<any>) => {
+            state.auth = action.payload
+            window.localStorage.setItem(
+                'authUser',
+                JSON.stringify(action.payload)
+            )
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -92,7 +97,6 @@ const authSlice = createSlice({
                     'refreshToken',
                     action.payload.payload.refreshToken
                 )
-            
             })
             .addCase(loginUser.rejected, (state, action: any) => {
                 state.loading = false
@@ -127,5 +131,5 @@ const authSlice = createSlice({
     },
 })
 
-export const { logout,addUser } = authSlice.actions
+export const { logout, addUser } = authSlice.actions
 export default authSlice.reducer
