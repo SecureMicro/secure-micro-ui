@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import { ThemeProvider } from '@mui/material'
 import './App.css'
 import { Provider } from 'react-redux'
@@ -11,57 +11,78 @@ import {
 import store from './store'
 import 'react-toastify/ReactToastify.css'
 import DashboardLayout from './components/layouts/DashboardLayout'
-import Dashboard from './pages/dashboard/Dashboard'
-import Login from './pages/auth/Login'
-import Services from './pages/services/Services'
-import Configurations from './pages/configurations/Configurations'
-import Users from './pages/users/Users'
-import Settings from './pages/settings/Settings'
 import { ROUTES } from './config/routes'
 import { lightTheme } from './config/theme'
-import Register from './pages/auth/Register'
-import Profile from './pages/profile/Profile'
+import ErrorBoundary from './Errorboundary'
+
+const Login = lazy(() => import('./pages/auth/Login'))
+const Register = lazy(() => import('./pages/auth/Register'))
+const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'))
+const Services = lazy(() => import('./pages/services/Services'))
+const Configurations = lazy(
+    () => import('./pages/configurations/Configurations')
+)
+const Users = lazy(() => import('./pages/users/Users'))
+const Settings = lazy(() => import('./pages/settings/Settings'))
+const Profile = lazy(() => import('./pages/profile/Profile'))
+
+const renderLoader = () => <p>Loading...</p>
 
 const App: React.FC = () => {
     return (
         <ThemeProvider theme={lightTheme}>
             <Provider store={store}>
                 <Router>
-                    <Routes>
-                        <Route path={ROUTES.LOGIN} element={<Login />} />
-                        <Route path={ROUTES.REGISTER} element={<Register />} />
+                    <ErrorBoundary>
+                        <Suspense fallback={renderLoader()}>
+                            <Routes>
+                                <Route
+                                    path={ROUTES.LOGIN}
+                                    element={<Login />}
+                                />
+                                <Route
+                                    path={ROUTES.REGISTER}
+                                    element={<Register />}
+                                />
 
-                        {/* Protected Routes */}
-                        <Route element={<DashboardLayout />}>
-                            <Route
-                                path={ROUTES.DASHBOARD}
-                                element={<Dashboard />}
-                            />
-                            <Route
-                                path={ROUTES.SERVICES}
-                                element={<Services />}
-                            />
-                            <Route
-                                path={ROUTES.CONFIGURATIONS}
-                                element={<Configurations />}
-                            />
-                            <Route path={ROUTES.USERS} element={<Users />} />
-                            <Route
-                                path={ROUTES.SETTINGS}
-                                element={<Settings />}
-                            />
-                            <Route
-                                path={ROUTES.PROFILE}
-                                element={<Profile />}
-                            />
-                        </Route>
+                                {/* Protected Routes */}
+                                <Route element={<DashboardLayout />}>
+                                    <Route
+                                        path={ROUTES.DASHBOARD}
+                                        element={<Dashboard />}
+                                    />
+                                    <Route
+                                        path={ROUTES.SERVICES}
+                                        element={<Services />}
+                                    />
+                                    <Route
+                                        path={ROUTES.CONFIGURATIONS}
+                                        element={<Configurations />}
+                                    />
+                                    <Route
+                                        path={ROUTES.USERS}
+                                        element={<Users />}
+                                    />
+                                    <Route
+                                        path={ROUTES.SETTINGS}
+                                        element={<Settings />}
+                                    />
+                                    <Route
+                                        path={ROUTES.PROFILE}
+                                        element={<Profile />}
+                                    />
+                                </Route>
 
-                        {/* Redirect unmatched routes to dashboard */}
-                        <Route
-                            path="*"
-                            element={<Navigate to={ROUTES.LOGIN} replace />}
-                        />
-                    </Routes>
+                                {/* Redirect unmatched routes to dashboard */}
+                                <Route
+                                    path="*"
+                                    element={
+                                        <Navigate to={ROUTES.LOGIN} replace />
+                                    }
+                                />
+                            </Routes>
+                        </Suspense>
+                    </ErrorBoundary>
                 </Router>
             </Provider>
         </ThemeProvider>
