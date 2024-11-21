@@ -9,7 +9,7 @@
         "build": "tsc -b && vite build",
         "preview": "vite preview",
         "lint": "eslint . --fix --max-warnings=0",
-        "format": "prettier . --write",
+        "format": "prettier --write \"**/*.{json,js}\"",
         "prepare": "husky install"
     },
     "dependencies": {
@@ -60,6 +60,6 @@
     "license": "ISC",
     "lint-staged": {
         "*.js": "eslint --cache --fix",
-        "*.--write": "prettier --write"
+        "*.--write": "prettier --write \"**/*.{json,js}\""
     }
 }
