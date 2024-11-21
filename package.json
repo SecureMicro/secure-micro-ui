@@ -60,6 +60,7 @@
     "license": "ISC",
     "lint-staged": {
         "*.js": "eslint --cache --fix",
-        "*.--write": "prettier --write \"**/*.{json,js}\""
+        "*.--write": "prettier --write \"**/*.{json,js}\"",
+        "*.{js,css,md,html,json}": "prettier --cache --write"
     }
 }
