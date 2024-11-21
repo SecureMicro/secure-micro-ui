@@ -1,9 +1,9 @@
 import { Navigate } from 'react-router-dom'
 import { ROUTES } from '../../config/routes'
-import { ReactNode } from 'react'
+import React from 'react'
 
 interface ProtectedRouteProps {
-    children: ReactNode
+    children: React.ReactNode
 }
 
 const ProtectedRoutes = ({ children }: ProtectedRouteProps) => {
