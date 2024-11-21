@@ -10,7 +10,8 @@
         "lint": "eslint .",
         "preview": "vite preview",
         "format": "prettier --write \"**/*.{json,js,ts,tsx}\"",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "hidisConfig": "node .hidis/config.js"
     },
     "dependencies": {
         "@emotion/react": "^11.13.3",
@@ -40,6 +41,7 @@
         "eslint-plugin-react-hooks": "^5.0.0",
         "eslint-plugin-react-refresh": "^0.4.14",
         "globals": "^15.12.0",
+        "hidis": "^1.0.5",
         "husky": "^9.1.7",
         "postcss": "^8.4.47",
         "prettier": "^3.3.3",
@@ -55,6 +57,9 @@
     "license": "ISC",
     "lint-staged": {
         "*.js": "eslint --cache --fix",
-        "*.{json,js,ts,tsx}": "prettier --write"
+        "*.{json,js,ts,tsx}": [
+            "prettier --write",
+            "eslint --fix"
+        ]
     }
 }

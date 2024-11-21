@@ -4,6 +4,7 @@ import Header from './Header'
 import Sidebar from './Sidebar'
 
 const DashboardLayout: React.FC = () => {
+    console.log('test')
     return (
         <div className="min-h-screen bg-gray-50">
             <Sidebar />
