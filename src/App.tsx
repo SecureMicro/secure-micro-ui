@@ -14,8 +14,9 @@ import DashboardLayout from './components/layouts/DashboardLayout'
 import { ROUTES } from './config/routes'
 import { lightTheme } from './config/theme'
 import ErrorBoundary from './Errorboundary'
+import Login from './pages/auth/Login'
 
-const Login = lazy(() => import('./pages/auth/Login'))
+// const Login = lazy(() => import('./pages/auth/Login'))
 const Register = lazy(() => import('./pages/auth/Register'))
 const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'))
 const Services = lazy(() => import('./pages/services/Services'))
@@ -46,6 +47,7 @@ const App: React.FC = () => {
                                 />
 
                                 {/* Protected Routes */}
+
                                 <Route element={<DashboardLayout />}>
                                     <Route
                                         path={ROUTES.DASHBOARD}
@@ -74,12 +76,12 @@ const App: React.FC = () => {
                                 </Route>
 
                                 {/* Redirect unmatched routes to dashboard */}
-                                <Route
+                                {/* <Route
                                     path="*"
                                     element={
                                         <Navigate to={ROUTES.LOGIN} replace />
                                     }
-                                />
+                                /> */}
                             </Routes>
                         </Suspense>
                     </ErrorBoundary>
