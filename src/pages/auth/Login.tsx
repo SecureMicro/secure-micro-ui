@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../config/routes'
 import { TextField, FormControl, Button, Typography, Box } from '@mui/material'
-import { loginUser } from '../../store/slices/authSlice'
+import { loginUser, addUser } from '../../store/slices/authSlice'
 import { useDispatch } from 'react-redux'
 
 const Login: React.FC = () => {
@@ -32,9 +32,11 @@ const Login: React.FC = () => {
                     password: values.password,
                 })
             ).then((action: any) => {
+                console.log('actionss', action)
                 if (loginUser.fulfilled.match(action)) {
                     // If login is successful, navigate to the dashboard
                     navigate(ROUTES.DASHBOARD)
+                    // dispatch(addUser(action))
                 }
             })
         },
@@ -47,7 +49,7 @@ const Login: React.FC = () => {
                     Sign in to SecureMicro
                 </Typography>
                 <form
-                    onSubmit={formik.handleSubmit}
+                    // onSubmit={formik.handleSubmit}
                     className="flex flex-col gap-4 w-full mt-4"
                 >
                     <FormControl fullWidth variant="outlined">

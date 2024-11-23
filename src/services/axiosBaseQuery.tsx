@@ -1,45 +1,63 @@
-import axios from "axios";
+import { AxiosResponse } from 'axios'
 
-
-interface AxiosbaseQueryOptions{
-    enviornment:'dev' |'uat'
-}
-const axiosBaseQuery:any=
-({enviornment="dev"}:AxiosbaseQueryOptions)=>
-    async(
-        {url='',method,service='',data,params,headers}:any,
-        {
-
-        }:{
-
+const axiosBaseQuery =
+    ({ environment = 'dev' }) =>
+    async ({ url = '', headers, method, data, params }: any, {}: {}) => {
+        const baseUrl = BASE_URL[environment]
+        if (!baseUrl) {
+            throw new Error(`Invalid environment:${environment}`)
         }
-    ):Promise<any>=>{
-        const baseUrl=BASE_URL[enviornment];
-        const {token}=auth
-        let browserUrl:string=''
-        if(!baseUrl){
-            throw new Error(`Invalid enviornment ${enviornment}`)
-        }else if(url){
-            browserUrl=`${baseUrl}${url}`
+        // const auth=getState();
+        const { auth } = getState()?.authReducer ?? {}
+        const { token } = auth ?? {}
+        let browserUrl: string = ''
+        if (url) {
+            browserUrl = `${baseUrl}${url}`
         }
-        headers={
+        headers = {
             ...headers,
-            Authorization:token ? `Bearer ${token}`
-        };
-        try {
-           const response:any=await axios({
-            url:browserUrl,
-            method,
-            headers,
-            params,
-            data
-           }) 
-           if(response?.status===401 && response.data.status==="unauthorized"){
-            alert('logout')
-           }
-           console.log('resp',response)
-           return {data:response?.data ,error:undefined}
-        } catch (error) {
-            if(axios.isAxiosError())
+            Authorization: token ? `Bearer ${token}` : '',
         }
+        const [error, response]: any? = await axios({
+            url: browserUrl,
+            headers,
+            method,
+            data,
+            params,
+        })
+        if (error) {
+            if (axios.isAxiosError(error)) {
+                if (error?.response?.status === 401) {
+                    alert('logout')
+                    // await dispatch(logoutUser());
+                    return {}
+                }
+                return {
+                    data: undefined,
+                    error: {
+                        status: error?.code ?? 'Unknown',
+                        data: error?.message ?? 'Unknown error',
+                    },
+                }
+            } else {
+                return {
+                    data: undefined,
+                    error: {
+                        status: 'Unknown',
+                        data: 'An unexpected error occurred',
+                    },
+                }
+            }
+        }
+
+        if (
+            response.status === 200 &&
+            response.data.status === 'UNAUTHORIZED' &&
+            response.data.code === 401
+        ) {
+            alert('logout')
+        }
+        return { data: response?.data, error: undefined }
     }
+
+export default axiosBaseQuery
